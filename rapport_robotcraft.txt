@@ -2,12 +2,12 @@ Report Robotcraft :
 
 Our team :
 We are team 7 : Sammy GROS, Antoine LEMARIGNIER and Mateo GOMES.
-Our team is composed of three students from the «ENSEA»  engineering school in France, all three in first year of a three year degree in electronics engineering, and we are members of our school’s robotic association. We hope to master ROS and robotics to participate in the Robotic Cup of France next year.
+Our team is composed of three students from the «ENSEA»  engineering school in France, all three in second year of a three year degree in electronics engineering, and we are members of our school’s robotics association. We hope to master ROS and robotics to participate in the Robotic Cup of France next year.
 
 Hardware :
 To complete our robot and hopefully the competition that consists in completing a maze and a known map. Our robot will obviously need motors to move, we will use two DC motors and spherical wheels. Then sensors to detect walls and obstacles, three infra-red sensors on the head of the robot to detect what’s in front, left and right directly, and a Lidar at the top of the robot to look at 360 degrees. Then the « head » of the robot is composed of two « brains », first a low level microcontroller, an « Arduino Mega » with a shield which comports a driver for motors and a voltage regulator, then a raspberry pi 3 for more complex tasks, such as supporting ROS. Finally we use a power button that will turn on the robot, a RGB LED and the system will be supplied by 7.4 V batteries. 
 The Raspberry pi 3 will communicate via an USB with the Arduino Mega as well as the Lidar, the sensors will communicate to the Arduino with wires connected to the pins, the motors receive from the motor driver via wires.
 
-Software :
+Software/Strategy :
 -Maze
-The robot will need to detect obstacles and move in consequence, for this the sensors will send a signal (probably GPIO) to the Arduino that will then process the information with a simple algorithm to 
+The robot will need to detect obstacles and move in consequence, for this the sensors will send a signal (probably GPIO) to the Arduino that will then process the information with a simple algorithm to choose his path according to the sensors that are activated, for example we can use a simple way of solving this type of maze which is to only follow the rigth or the left wall, this way even if the robot has to travel trough the whole maze it will eventually solve it. To make the robot moove to the direction we want, we will use the motors and modify their speed to make the robot go more to rigth or to left.
