@@ -1,30 +1,43 @@
-#include <Encoder.h>
+// Définition des broches de l'encodeur
+const int pinA = 3;  // Broche A de l'encodeur connectée à la broche D3 de l'Arduino
+const int pinB = 2;  // Broche B de l'encodeur connectée à la broche D2 de l'Arduino
 
-// Définition des broches pour les encodeurs
-#define encoderLPinA 2 // Broche A de l'encodeur de gauche
-#define encoderLPinB 3 // Broche B de l'encodeur de gauche
-#define encoderRPinA 4 // Broche A de l'encodeur de droite
-#define encoderRPinB 5 // Broche B de l'encodeur de droite
-
-// Création d'instances de la classe Encoder
-Encoder encL(encoderLPinA, encoderLPinB);
-Encoder encR(encoderRPinA, encoderRPinB);
+// Variables pour la gestion de l'encodeur
+volatile long position = 0;  // Position actuelle de l'encodeur
 
 void setup() {
+  // Initialisation des broches de l'encodeur en entrée avec pull-up
+  pinMode(pinA, INPUT_PULLUP);
+  pinMode(pinB, INPUT_PULLUP);
+
+  // Interruption sur changement d'état pour les broches de l'encodeur
+  attachInterrupt(digitalPinToInterrupt(pinA), updateEncoder, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(pinB), updateEncoder, CHANGE);
+
+  // Début de la communication série
   Serial.begin(9600);
-  // Attach interrupt service routines if needed
 }
 
 void loop() {
-  // Lecture des compteurs d'encodeur
-  long countL = encL.read();
-  long countR = encR.read();
+  // Affichage de la position de l'encodeur
+  Serial.println(position);
 
-  // Affichage des valeurs lues sur le moniteur série
-  Serial.print("Encoder L count: ");
-  Serial.println(countL);
-  Serial.print("Encoder R count: ");
-  Serial.println(countR);
+  // Ajoutez ici d'autres instructions pour contrôler votre moteur en fonction de la position
+  // Par exemple, utiliser la position pour contrôler un servomoteur ou un moteur pas à pas
 
-  delay(100); // Ajoutez un délai si nécessaire pour éviter de lire trop souvent
+  delay(100);  // Délai pour ralentir la boucle
+}
+
+// Fonction de mise à jour de l'encodeur (appelée lors d'un changement d'état)
+void updateEncoder() {
+  // Lecture des états actuels des broches A et B de l'encodeur
+  int stateA = digitalRead(pinA);
+  int stateB = digitalRead(pinB);
+
+  // Calcul de la direction de rotation
+  if (stateA == stateB) {
+    position++;
+  } else {
+    position--;
+  }
 }
