@@ -73,4 +73,41 @@ void loop() {
 }
 
 //fin
+//nouveau 
 
+#include "SharpIR.h"
+
+// Définir le modèle et la broche d'entrée :
+#define IRPin A4
+#define model 1080
+
+// Créer une variable pour stocker la distance :
+int distance_cm;
+
+/* Modèles pris en charge :
+   GP2Y0A02YK0F --> 20150
+   GP2Y0A21YK0F --> 1080
+   GP2Y0A710K0F --> 100500
+   GP2YA41SK0F  --> 430
+*/
+
+// Créer une nouvelle instance de la classe SharpIR :
+SharpIR mySensor = SharpIR(IRPin, model);
+
+void setup() {
+  // Initialiser la communication série à 9600 baud :
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Obtenir une mesure de distance et la stocker dans distance_cm :
+  distance_cm = mySensor.distance();
+
+  // Afficher la distance mesurée sur le moniteur série :
+  Serial.print("Distance: ");
+  Serial.print(distance_cm);
+  Serial.println(" cm");
+
+  // Délai avant la prochaine mesure :
+  delay(100);
+}
