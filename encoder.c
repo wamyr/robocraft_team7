@@ -1,43 +1,62 @@
-// Définition des broches de l'encodeur
-const int pinA = 3;  // Broche A de l'encodeur connectée à la broche D3 de l'Arduino
-const int pinB = 2;  // Broche B de l'encodeur connectée à la broche D2 de l'Arduino
+// Moteur 1 - Définition des broches de l'encodeur
+const int encoderPinA1 = 3;   // Broche A de l'encodeur du moteur 1 (D3)
+const int encoderPinB1 = 2;   // Broche B de l'encodeur du moteur 1 (D2)
 
-// Variables pour la gestion de l'encodeur
-volatile long position = 0;  // Position actuelle de l'encodeur
+// Moteur 2 - Définition des broches de l'encodeur
+const int encoderPinA2 = 18;  // Broche A de l'encodeur du moteur 2 (D18)
+const int encoderPinB2 = 19;  // Broche B de l'encodeur du moteur 2 (D19)
+
+// Variables pour la gestion des encodeurs des deux moteurs
+volatile long position1 = 0;  // Position actuelle de l'encodeur du moteur 1
+volatile long position2 = 0;  // Position actuelle de l'encodeur du moteur 2
 
 void setup() {
-  // Initialisation des broches de l'encodeur en entrée avec pull-up
-  pinMode(pinA, INPUT_PULLUP);
-  pinMode(pinB, INPUT_PULLUP);
+  // Initialisation des broches des encodeurs en entrée avec pull-up
+  pinMode(encoderPinA1, INPUT_PULLUP);
+  pinMode(encoderPinB1, INPUT_PULLUP);
+  pinMode(encoderPinA2, INPUT_PULLUP);
+  pinMode(encoderPinB2, INPUT_PULLUP);
 
-  // Interruption sur changement d'état pour les broches de l'encodeur
-  attachInterrupt(digitalPinToInterrupt(pinA), updateEncoder, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(pinB), updateEncoder, CHANGE);
+  // Interruptions sur changement d'état pour les encodeurs
+  attachInterrupt(digitalPinToInterrupt(encoderPinA1), updateEncoder1, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(encoderPinB1), updateEncoder1, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(encoderPinA2), updateEncoder2, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(encoderPinB2), updateEncoder2, CHANGE);
 
   // Début de la communication série
   Serial.begin(9600);
 }
 
 void loop() {
-  // Affichage de la position de l'encodeur
-  Serial.println(position);
+  // Affichage de la position des encodeurs des deux moteurs
+  Serial.print("Position moteur 1: ");
+  Serial.println(position1);
+  Serial.print("Position moteur 2: ");
+  Serial.println(position2);
 
-  // Ajoutez ici d'autres instructions pour contrôler votre moteur en fonction de la position
-  // Par exemple, utiliser la position pour contrôler un servomoteur ou un moteur pas à pas
+  // Ajoutez ici d'autres instructions pour contrôler vos moteurs en fonction des positions
 
   delay(100);  // Délai pour ralentir la boucle
 }
 
-// Fonction de mise à jour de l'encodeur (appelée lors d'un changement d'état)
-void updateEncoder() {
-  // Lecture des états actuels des broches A et B de l'encodeur
-  int stateA = digitalRead(pinA);
-  int stateB = digitalRead(pinB);
-
-  // Calcul de la direction de rotation
+// Fonction de mise à jour de l'encodeur du moteur 1 (appelée lors d'un changement d'état)
+void updateEncoder1() {
+  int stateA = digitalRead(encoderPinA1);
+  int stateB = digitalRead(encoderPinB1);
   if (stateA == stateB) {
-    position++;
+    position1++;
   } else {
-    position--;
+    position1--;
+  }
+}
+
+// Fonction de mise à jour de l'encodeur du moteur 2 (appelée lors d'un changement d'état)
+void updateEncoder2() {
+  int stateA = digitalRead(encoderPinA2);
+  int stateB = digitalRead(encoderPinB2);
+  if (stateA == stateB) {
+    position2++;
+  } else {
+    position2--;
   }
 }
