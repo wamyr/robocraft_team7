@@ -1,3 +1,5 @@
+https://www.makerguides.com/sharp-gp2y0a21yk0f-ir-distance-sensor-arduino-tutorial/
+
 int i;
 int val;
 int redpin=0;
