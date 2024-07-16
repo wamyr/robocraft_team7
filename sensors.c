@@ -15,39 +15,60 @@ void loop()
 
 // test annexe 
 
-const int sensorPin = A4; // Définir le capteur sur l'entrée analogique A4
-const int sensorMinValue = 10; // Valeur minimale pour éviter la division par zéro
-const int readDelay = 1000; // Délai entre les lectures en millisecondes
-const int numReadings = 10; // Nombre de lectures pour la moyenne
+/* SHARP GP2Y0A21YK0F IR distance sensor with 
+   Arduino and SharpIR library example code. 
+   More info: https://www.makerguides.com */
+
+// Include the library:
+#include "SharpIR.h"
+
+// Define model and input pin:
+#define IRPin A0
+#define model 1080
+
+// Create variable to store the distance:
+int distance_cm;
+
+/* Model :
+   GP2Y0A02YK0F --> 20150
+   GP2Y0A21YK0F --> 1080
+   GP2Y0A710K0F --> 100500
+   GP2YA41SK0F  --> 430
+*/
+
+// Create a new instance of the SharpIR class:
+SharpIR mySensor = SharpIR(IRPin, model);
 
 void setup() {
-  pinMode(sensorPin, INPUT); // Définir le capteur comme une entrée
-  Serial.begin(9600); // Initialiser la communication série
+  // Begin serial communication at a baudrate of 9600:
+  Serial.begin(9600);
 }
 
 void loop() {
-  int total = 0;
-  int averageReading;
+  // Number of readings to take for averaging
+  const int numReadings = 10;
+  int totalDistance = 0;
 
-  // Prendre plusieurs lectures pour une moyenne
   for (int i = 0; i < numReadings; i++) {
-    total += analogRead(sensorPin);
-    delay(10); // Petit délai entre les lectures
-  }
-  
-  averageReading = total / numReadings;
-
-  // Vérifiez que la valeur lue est supérieure à la valeur minimale
-  if (averageReading >= sensorMinValue) {
-    int distance = (6762 / (averageReading - 9)) - 4;
-    Serial.print("Distance: ");
-    Serial.print(distance);
-    Serial.println(" mm");
-  } else {
-    Serial.println("Valeur du capteur trop basse");
+    int reading = mySensor.distance();
+    if (reading > 0) { // Check if the reading is valid
+      totalDistance += reading;
+    } else {
+      Serial.println("Invalid reading");
+    }
+    delay(50); // Short delay between readings
   }
 
-  delay(readDelay); // Délai avant la prochaine lecture
+  // Calculate the average distance
+  distance_cm = totalDistance / numReadings;
+
+  // Print the measured distance to the serial monitor:
+  Serial.print("Mean distance: ");
+  Serial.print(distance_cm);
+  Serial.println(" cm");
+
+  delay(1000); // Delay before the next measurement
 }
+
 //fin
 
