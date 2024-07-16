@@ -33,16 +33,28 @@ void setup() {
 }
 
 void loop() {
-  // Affichage de la position des encodeurs des deux moteurs
+  // Calcul de la position angulaire en degrés pour les deux moteurs
+  float angle1 = (position1 / 3576.0) * 360.0;
+  float angle2 = (position2 / 3576.0) * 360.0;
+
+  // Affichage de la position angulaire des encodeurs des deux moteurs
   digitalWrite(dir_motor_1, LOW);
   digitalWrite(dir_motor_2, LOW);
   int speed = 250;
   analogWrite(PWM_pin_1, speed);
   analogWrite(PWM_pin_2, speed);
+  
   Serial.print("Position moteur 1: ");
-  Serial.println(position1);
+  Serial.print(position1);
+  Serial.print(" impulsions, Angle: ");
+  Serial.print(angle1);
+  Serial.println(" degrés");
+
   Serial.print("Position moteur 2: ");
-  Serial.println(position2);
+  Serial.print(position2);
+  Serial.print(" impulsions, Angle: ");
+  Serial.print(angle2);
+  Serial.println(" degrés");
 
   // Ajoutez ici d'autres instructions pour contrôler vos moteurs en fonction des positions
 
