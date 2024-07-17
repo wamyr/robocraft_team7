@@ -51,7 +51,6 @@ void loop() {
   sensF();
   sensR();
   sensL();
-  
   // Lire les différences des encodeurs toutes les 100ms (10Hz)
   if (millis() - lastUpdateTime >= 100) {
     readEncoderDifferences();
@@ -65,7 +64,7 @@ void loop() {
   analogWrite(PWM_pin_1, speed);
   analogWrite(PWM_pin_2, speed);
   
-  delay(10);
+  
 }
 
 void sensF() {
