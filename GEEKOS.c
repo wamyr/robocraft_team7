@@ -35,8 +35,9 @@ void poseUpdate(float NL, float NR, float r, float b, float C){
 }
 
 void cmd_vel(){
-
-    flr
+    float deltat=0.1;
+    float Velo=((2*3.14*r)/C)*((NR+NL)/2)/deltat;
+    float WVelo=((2*3.14*r)/C)*((NR-NL)/2)/deltat;
 
 }
 
