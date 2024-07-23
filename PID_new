@@ -21,9 +21,9 @@ long encDiff00 = 0;
 unsigned long lastUpdateTime = 0;
 double desiredSpeed = 0;  // Vitesse souhaitée
 double currentSpeed = 0;  // Vitesse actuelle
-float r = 0.05;           // Rayon des roues
-float b = 0.2;            // Distance entre les roues
-float C = 100;            // Résolution de l'encodeur
+float r = 0.016;           // Rayon des roues
+float b = 0.1;            // Distance entre les roues
+float C = 596;            // Résolution de l'encodeur
 float deltat = 0.1;       // Différence de temps en secondes
 float wleft = 0;
 float wright = 0;
@@ -33,8 +33,8 @@ float interr[2] = {0, 0};
 float Gmot[2] = {0, 0};
 
 // Constantes pour le PID
-const float Kp = 1.0;
-const float Ki = 0.5;
+const float Kp = 1;
+const float Ki = 0.0;
 const float Kd = 0.0;
 
 // Structure pour les données d'odométrie
@@ -70,8 +70,9 @@ void setup() {
   
   digitalWrite(dir_motor_1, 1);
   analogWrite(PWM_pin_1, 200);
-  digitalWrite(dir_motor_1, 1);
-  analogWrite(PWM_pin_1, 200);
+  analogWrite(PWM_pin_2, 200);
+  digitalWrite(dir_motor_2, 1);
+  
 }
 
 void loop() {
@@ -81,16 +82,16 @@ void loop() {
     float* vel = cmd_vel();
     float wheels[2];
     cmd_vel2wheels(vel, b, r, wheels);
-    pid_controller();
     poseUpdate(wheels);
     PIDError(wheels);
+    pid_controller();
     lastUpdateTime = millis();
 
     // Envoyer la vitesse du moteur droit au port série pour le tracé
     Serial.print("Temps = ");
     Serial.print(millis() / 1000.0);
     Serial.print(", Vitesse moteur droit = ");
-    Serial.println(wright);
+    Serial.println(wleft);
   }
 }
 
@@ -159,11 +160,14 @@ void poseUpdate(float wheels[2]) {
 
 // Fonction de calcul des erreurs PID
 void PIDError(float wheels[2]) {
-  deverr[0] = proerr[0] - wheels[0]; // ed(i+1) = ep(i+1) - ep(i)
-  deverr[1] = proerr[1] - wheels[1];
+  deverr[0] = -proerr[0]; // ed(i+1) = ep(i+1) - ep(i)
+  deverr[1] = -proerr[1];
 
   proerr[0] = wheels[0] - wleft; // ep(i+1)
   proerr[1] = wheels[1] - wright;
+
+  deverr[0] += proerr[0]; // ed(i+1) = ep(i+1) - ep(i)
+  deverr[1] += proerr[1];
 
   interr[0] += proerr[0]; // el(i+1) = el(i) + ep(i+1)
   interr[1] += proerr[1];
