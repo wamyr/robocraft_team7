@@ -82,7 +82,7 @@ void loop() {
     float* vel = cmd_vel();
     float wheels[2];
     cmd_vel2wheels(vel, b, r, wheels);
-    poseUpdate(wheels);
+    poseUpdate(); //wheels ?
     PIDError(wheels);
     pid_controller();
     lastUpdateTime = millis();
@@ -90,8 +90,11 @@ void loop() {
     // Envoyer la vitesse du moteur droit au port série pour le tracé
     Serial.print("Temps = ");
     Serial.print(millis() / 1000.0);
-    Serial.print(", Vitesse moteur droit = ");
-    Serial.println(wleft);
+    Serial.print("odom.v = ");
+    Serial.println(odom.v);
+    Serial.print(", odom.w = ");
+    Serial.println(odom.w);
+    
   }
 }
 
@@ -108,11 +111,10 @@ void encUpdate() {
   int diff = encDiff1 - encDiff0;
   int difff = encDiff11 - encDiff00;
 
-  // Commenté pour le tracé
-  // Serial.print("La différence d'encodeur principal est de ");
-  // Serial.println(diff);
-  // Serial.print("La différence d'encodeur secondaire est de ");
-  // Serial.println(difff);
+  //Serial.print("La différence d'encodeur principal est de ");
+  //Serial.println(diff);
+  //Serial.print("La différence d'encodeur secondaire est de ");
+  //Serial.println(difff);
 
   encDiff0 = encDiff1;
   encDiff00 = encDiff11;
@@ -136,7 +138,7 @@ void cmd_vel2wheels(float vel[2], float axis_length, float radius, float wheels[
 }
 
 // Fonction pour mettre à jour les données d'odométrie
-void poseUpdate(float wheels[2]) {
+void poseUpdate() { //float wheels[2] ?
   long encDiff1 = myEnc.read();
   long encDiff11 = myEnc1.read();
 
@@ -149,13 +151,13 @@ void poseUpdate(float wheels[2]) {
   wleft = (odom.v - (b / 2 * odom.w)) / r;
   wright = (odom.v + (b / 2 * odom.w)) / r;
 
-  // Commenté pour le tracé
-  // Serial.print("Pose: x = ");
-  // Serial.print(odom.x);
-  // Serial.print(", y = ");
-  // Serial.print(odom.y);
-  // Serial.print(", theta = ");
-  // Serial.println(odom.theta);
+  
+  Serial.print("Pose: x = ");
+  Serial.print(odom.x);
+  Serial.print(", y = ");
+  Serial.print(odom.y);
+  Serial.print(", theta = ");
+  Serial.println(odom.theta);
 }
 
 // Fonction de calcul des erreurs PID
@@ -172,21 +174,21 @@ void PIDError(float wheels[2]) {
   interr[0] += proerr[0]; // el(i+1) = el(i) + ep(i+1)
   interr[1] += proerr[1];
 
-  // Commenté pour le tracé
-  // Serial.print("Proportional Error Gauche = ");
-  // Serial.print(proerr[0]);
-  // Serial.print(", Droite = ");
-  // Serial.println(proerr[1]);
+  
+  Serial.print("Proportional Error Gauche = ");
+  Serial.print(proerr[0]);
+  Serial.print(", Droite = ");
+  Serial.println(proerr[1]);
 
-  // Serial.print("Derivative Error Gauche = ");
-  // Serial.print(deverr[0]);
-  // Serial.print(", Droite = ");
-  // Serial.println(deverr[1]);
+  Serial.print("Derivative Error Gauche = ");
+  Serial.print(deverr[0]);
+  Serial.print(", Droite = ");
+  Serial.println(deverr[1]);
 
-  // Serial.print("Integral Error Gauche = ");
-  // Serial.print(interr[0]);
-  // Serial.print(", Droite = ");
-  // Serial.println(interr[1]);
+  Serial.print("Integral Error Gauche = ");
+  Serial.print(interr[0]);
+  Serial.print(", Droite = ");
+  Serial.println(interr[1]);
 }
 
 void pid_controller() {
@@ -195,22 +197,22 @@ void pid_controller() {
 
 
   //En théorie 0 sur la dir met les deux vers l'avant
-  // Commande moteur gauche
+  // Commande moteur gauche ==> Pin 2
   if (Gmot[0] > 0.0) {
-    analogWrite(PWM_pin_1, (int)Gmot[0]);
-    digitalWrite(dir_motor_1, 0);
-  } else {
-    digitalWrite(dir_motor_1, 1);
-    analogWrite(PWM_pin_1, (int)fabs(Gmot[0]));
-  }
-
-  // Commande moteur droit
-  if (Gmot[1] > 0.0) {
-    analogWrite(PWM_pin_2, (int)Gmot[1]);
+    analogWrite(PWM_pin_2, (int)Gmot[0]);
     digitalWrite(dir_motor_2, 0);
   } else {
     digitalWrite(dir_motor_2, 1);
-    analogWrite(PWM_pin_2, (int)fabs(Gmot[1]));
+    analogWrite(PWM_pin_2, (int)fabs(Gmot[0]));
+  }
+
+  // Commande moteur droit ==> Pin 1
+  if (Gmot[1] > 0.0) {
+    analogWrite(PWM_pin_1, (int)Gmot[1]);
+    digitalWrite(dir_motor_1, 0);
+  } else {
+    digitalWrite(dir_motor_1, 1);
+    analogWrite(PWM_pin_1, (int)fabs(Gmot[1]));
   }
 
   // Commenté pour le tracé
