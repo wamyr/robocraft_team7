@@ -25,7 +25,7 @@ double desiredSpeed = 0;  // Vitesse souhaitée
 double currentSpeed = 0;  // Vitesse actuelle
 float r = 0.016;          // Rayon des roues
 float b = 0.1;            // Distance entre les roues
-float C = 8400;           // Résolution de l'encodeur (8400 apparement à tester sans doute, 596 sur random datasheet)
+float C = 596;           // Résolution de l'encodeur (8400 apparement à tester sans doute, 596 sur random datasheet)
 float deltat = 0.1;       // Différence de temps en secondes
 double wleft = 0;
 double wright = 0;
@@ -37,9 +37,9 @@ double diffLeft = 0;
 double diffRigth = 0;
 
 // Constantes pour le PID
-const float Kp = 20; //max à 100
-const float Ki = 0.0;
-const float Kd = 0.0;
+const float Kp = 20; //max à 100, pas trop mal pour Kp = 20 et Ki = 10
+const float Ki = 10;
+const float Kd = 0;
 
 // Structure pour les données d'odométrie
 struct odomMsg {
@@ -93,10 +93,10 @@ void loop() {
     // Envoyer la vitesse du moteur droit au port série pour le tracé
     // Serial.print("Temps = ");
     // Serial.print(millis() / 1000.0);
-    Serial.print("odom.v = ");
-    Serial.println(odom.v, 6);
-    Serial.print(", odom.w = ");
-    Serial.println(odom.w, 6);
+    Serial.print("x = ");
+    Serial.println(odom.x, 6);
+    Serial.print(", y = ");
+    Serial.println(odom.y, 6);
   }
 }
 
@@ -113,10 +113,10 @@ void encUpdate() {
   diffLeft = encDiffLeftNew - encDiffLeft;
   diffRigth = encDiffRigthNew - encDiffRigth;
 
-   Serial.print("La différence d'encodeur principal est de ");
-   Serial.println(diffLeft);
-   Serial.print("La différence d'encodeur secondaire est de ");
-   Serial.println(diffRigth);
+   //Serial.print("La différence d'encodeur principal est de ");
+   //Serial.println(diffLeft);
+   //Serial.print("La différence d'encodeur secondaire est de ");
+   //Serial.println(diffRigth);
 
   encDiffLeft = encDiffLeftNew;
   encDiffRigth = encDiffRigthNew;
@@ -124,7 +124,7 @@ void encUpdate() {
 
 // Fonction de commande de vitesse
 float* cmd_vel() {
-  static float vel[2] = {-0.05, 0}; // Exemple de vitesses
+  static float vel[2] = {0.05,0}; // Exemple de vitesses ****************************************************
   return vel;
 }
 
@@ -133,10 +133,10 @@ void cmd_vel2wheels(float vel[2], float axis_length, float radius, float wheels[
   wheels[0] = (vel[0] - (axis_length / 2) * vel[1]) / radius; // gauche
   wheels[1] = (vel[0] + (axis_length / 2) * vel[1]) / radius; // droite
   // Commenté pour le tracé
-   Serial.print("Vitesses des roues : Gauche = ");
-   Serial.println(wheels[0]);
-   Serial.print(", Droite = ");
-   Serial.println(wheels[1]);
+   //Serial.print("Vitesses des roues : Gauche = "); //Wheels = vitesses roues désirées
+   //Serial.println(wheels[0]);
+   //Serial.print(", Droite = ");
+   //Serial.println(wheels[1]);
 }
 
 // Fonction pour mettre à jour les données d'odométrie
@@ -154,9 +154,9 @@ void poseUpdate() { //float wheels[2] ?
   wright = (odom.v + (b / 2 * odom.w)) / r;
 
    Serial.print("wleft = ");
-   Serial.print(wleft);
+   Serial.println(wleft,6);
    Serial.print("wrigth = ");
-   Serial.print(wright);
+   Serial.println(wright,6);
    
 }
 
@@ -174,10 +174,10 @@ void PIDError(float wheels[2]) {
   interr[0] += proerr[0]; // el(i+1) = el(i) + ep(i+1)
   interr[1] += proerr[1];
 
-   Serial.print("Proportional Error Gauche = ");
-   Serial.print(proerr[0]);
-   Serial.print(", Droite = ");
-   Serial.println(proerr[1]);
+   //Serial.print("Proportional Error Gauche = ");
+   //Serial.print(proerr[0]);
+   //Serial.print(", Droite = ");
+   //Serial.println(proerr[1]);
 
   // Serial.print("Derivative Error Gauche = ");
   // Serial.print(deverr[0]);
@@ -221,8 +221,8 @@ void pid_controller() {
   }
 
   // Commenté pour le tracé
-  Serial.print("Commande moteur Gauche = ");
-  Serial.print(Gmot[0]);
-  Serial.print(", Droite = ");
-  Serial.println(Gmot[1]);
+  //Serial.print("Commande moteur Gauche = ");
+  //Serial.print(Gmot[0]);
+  //Serial.print(", Droite = ");
+  //Serial.println(Gmot[1]);
 }
