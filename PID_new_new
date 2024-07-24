@@ -37,7 +37,7 @@ double diffLeft = 0;
 double diffRigth = 0;
 
 // Constantes pour le PID
-const float Kp = 1;
+const float Kp = 20; //max à 100
 const float Ki = 0.0;
 const float Kd = 0.0;
 
@@ -124,7 +124,7 @@ void encUpdate() {
 
 // Fonction de commande de vitesse
 float* cmd_vel() {
-  static float vel[2] = {0.05, 1}; // Exemple de vitesses
+  static float vel[2] = {-0.05, 0}; // Exemple de vitesses
   return vel;
 }
 
@@ -134,7 +134,7 @@ void cmd_vel2wheels(float vel[2], float axis_length, float radius, float wheels[
   wheels[1] = (vel[0] + (axis_length / 2) * vel[1]) / radius; // droite
   // Commenté pour le tracé
    Serial.print("Vitesses des roues : Gauche = ");
-   Serial.print(wheels[0]);
+   Serial.println(wheels[0]);
    Serial.print(", Droite = ");
    Serial.println(wheels[1]);
 }
@@ -153,12 +153,11 @@ void poseUpdate() { //float wheels[2] ?
   wleft = (odom.v - (b / 2 * odom.w)) / r;
   wright = (odom.v + (b / 2 * odom.w)) / r;
 
-  // Serial.print("Pose: x = ");
-  // Serial.print(odom.x);
-  // Serial.print(", y = ");
-  // Serial.print(odom.y);
-  // Serial.print(", theta = ");
-  // Serial.println(odom.theta);
+   Serial.print("wleft = ");
+   Serial.print(wleft);
+   Serial.print("wrigth = ");
+   Serial.print(wright);
+   
 }
 
 // Fonction de calcul des erreurs PID
@@ -205,20 +204,20 @@ void pid_controller() {
   }
   // Commande moteur gauche ==> Pin 2
   if (Gmot[0] > 0.0) {
-    analogWrite(PWM_pin_2, (int)(Gmot[0]*wleft));
+    analogWrite(PWM_pin_2, (int)(Gmot[0]));
     analogWrite(dir_motor_2, LOW);
   } else {
     analogWrite(dir_motor_2, HIGH);
-    analogWrite(PWM_pin_2, (int)fabs(Gmot[0]*wleft));
+    analogWrite(PWM_pin_2, (int)fabs(Gmot[0]));
   }
 
   // Commande moteur droit ==> Pin 1
   if (Gmot[1] > 0.0) {
-    analogWrite(PWM_pin_1, (int)(Gmot[1]*wright));
+    analogWrite(PWM_pin_1, (int)(Gmot[1]));
     analogWrite(dir_motor_1, LOW);
   } else {
     analogWrite(dir_motor_1, HIGH);
-    analogWrite(PWM_pin_1, (int)fabs(Gmot[1]*wright));
+    analogWrite(PWM_pin_1, (int)fabs(Gmot[1]));
   }
 
   // Commenté pour le tracé
