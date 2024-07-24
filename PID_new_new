@@ -10,6 +10,8 @@ const int PRB = 19;
 #define PWM_pin_1 4
 #define PWM_pin_2 9
 
+const double MAX_MOTOR_OUTPUT = 255; // Maximum PWM value
+
 // Initialiser les objets Encoder
 Encoder myEnc(PLA, PRA);
 Encoder myEnc1(PLB, PRB);
@@ -25,11 +27,11 @@ float r = 0.016;          // Rayon des roues
 float b = 0.1;            // Distance entre les roues
 float C = 8400;           // Résolution de l'encodeur (8400 apparement à tester sans doute, 596 sur random datasheet)
 float deltat = 0.1;       // Différence de temps en secondes
-float wleft = 0;
-float wright = 0;
-float proerr[2] = {0, 0};
-float deverr[2] = {0, 0};
-float interr[2] = {0, 0};
+double wleft = 0;
+double wright = 0;
+double proerr[2] = {0, 0};
+double deverr[2] = {0, 0};
+double interr[2] = {0, 0};
 double Gmot[2] = {0, 0};
 double diffLeft = 0;
 double diffRigth = 0;
@@ -111,10 +113,10 @@ void encUpdate() {
   diffLeft = encDiffLeftNew - encDiffLeft;
   diffRigth = encDiffRigthNew - encDiffRigth;
 
-  // Serial.print("La différence d'encodeur principal est de ");
-  // Serial.println(diffLeft);
-  // Serial.print("La différence d'encodeur secondaire est de ");
-  // Serial.println(diffRigth);
+   Serial.print("La différence d'encodeur principal est de ");
+   Serial.println(diffLeft);
+   Serial.print("La différence d'encodeur secondaire est de ");
+   Serial.println(diffRigth);
 
   encDiffLeft = encDiffLeftNew;
   encDiffRigth = encDiffRigthNew;
@@ -192,10 +194,15 @@ void PIDError(float wheels[2]) {
 void pid_controller() {
   Gmot[0] = Kp * proerr[0] + Ki * interr[0] * deltat + Kd * deverr[0] / deltat;
   Gmot[1] = Kp * proerr[1] + Ki * interr[1] * deltat + Kd * deverr[1] / deltat;
-
-  Gmot[0] = constrain(Gmot[0],-100,100);
-  Gmot[1] = constrain(Gmot[1],-100,100);
+  
   // En théorie 0 sur la dir met les deux vers l'avant
+  for (int i=0;i<2;i++){
+      if ((int)Gmot[i] > MAX_MOTOR_OUTPUT) {
+      Gmot[i] = MAX_MOTOR_OUTPUT;
+    } else if ((int)Gmot[i] < -MAX_MOTOR_OUTPUT) {
+      Gmot[i] = -MAX_MOTOR_OUTPUT;
+    }
+  }
   // Commande moteur gauche ==> Pin 2
   if (Gmot[0] > 0.0) {
     analogWrite(PWM_pin_2, (int)(Gmot[0]*wleft));
