@@ -13,7 +13,7 @@ const int PRB = 19;
 const double MAX_MOTOR_OUTPUT = 255; // Maximum PWM value
 
 // Initialiser les objets Encoder
-Encoder myEnc(PLA, PRA);
+Encoder myEnc(PRA, PLA);
 Encoder myEnc1(PLB, PRB);
 
 // Variables globales
