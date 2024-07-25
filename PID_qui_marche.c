@@ -37,9 +37,9 @@ double diffLeft = 0;
 double diffRigth = 0;
 
 // Constantes pour le PID
-const float Kp = 20; //max à 100, pas trop mal pour Kp = 20 et Ki = 10
-const float Ki = 100;
-const float Kd = 0;
+const float Kp = 24; //max à 100, pas trop mal pour Kp = 20 et Ki = 10
+const float Ki = 25;
+const float Kd = 5;
 
 // Structure pour les données d'odométrie
 struct odomMsg {
@@ -122,7 +122,7 @@ void encUpdate() {
 
 // Fonction de commande de vitesse
 float* cmd_vel() {
-  static float vel[2] = {0.05,0}; // Exemple de vitesses ****************************************************
+  static float vel[2] = {0.01,.5}; // Exemple de vitesses ****************************************************
   return vel;
 }
 
