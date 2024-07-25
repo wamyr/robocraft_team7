@@ -13,8 +13,8 @@ const int PRB = 19;
 const double MAX_MOTOR_OUTPUT = 255; // Maximum PWM value
 
 // Initialiser les objets Encoder
-Encoder myEnc(PRA, PLA);
-Encoder myEnc1(PLB, PRB);
+Encoder myEnc(PLB, PLA);
+Encoder myEnc1(PRA, PRB);
 
 // Variables globales
 volatile double encoderCount = 0;
@@ -25,7 +25,7 @@ double desiredSpeed = 0;  // Vitesse souhaitée
 double currentSpeed = 0;  // Vitesse actuelle
 float r = 0.016;          // Rayon des roues
 float b = 0.1;            // Distance entre les roues
-float C = 596;           // Résolution de l'encodeur (8400 apparement à tester sans doute, 596 sur random datasheet)
+float C = 8300;           // Résolution de l'encodeur (8400 apparement à tester sans doute, 596 sur random datasheet)
 float deltat = 0.1;       // Différence de temps en secondes
 double wleft = 0;
 double wright = 0;
@@ -38,7 +38,7 @@ double diffRigth = 0;
 
 // Constantes pour le PID
 const float Kp = 20; //max à 100, pas trop mal pour Kp = 20 et Ki = 10
-const float Ki = 10;
+const float Ki = 0;
 const float Kd = 0;
 
 // Structure pour les données d'odométrie
@@ -71,11 +71,7 @@ void setup() {
 
   // Attacher l'interruption
   attachInterrupt(digitalPinToInterrupt(PRA), encFunc, CHANGE);
-  
-  digitalWrite(dir_motor_1, 0);
-  analogWrite(PWM_pin_1, 200);
-  digitalWrite(dir_motor_2, 0);
-  analogWrite(PWM_pin_2, 200);
+
 }
 
 void loop() {
@@ -91,12 +87,12 @@ void loop() {
     pid_controller();
 
     // Envoyer la vitesse du moteur droit au port série pour le tracé
-    // Serial.print("Temps = ");
-    // Serial.print(millis() / 1000.0);
-    Serial.print("x = ");
-    Serial.println(odom.x, 6);
-    Serial.print(", y = ");
-    Serial.println(odom.y, 6);
+    //Serial.print("Temps = ");
+    //Serial.print(millis() / 1000.0);
+    //Serial.print("x = ");
+    //Serial.println(odom.x, 6);
+    //Serial.print(", y = ");
+    //Serial.println(odom.y, 6);
   }
 }
 
@@ -110,13 +106,15 @@ void encUpdate() {
   double encDiffLeftNew = myEnc.read();
   double encDiffRigthNew = myEnc1.read();
 
+  encDiffRigthNew = abs(encDiffRigthNew);
+  
   diffLeft = encDiffLeftNew - encDiffLeft;
   diffRigth = encDiffRigthNew - encDiffRigth;
 
    //Serial.print("La différence d'encodeur principal est de ");
-   //Serial.println(diffLeft);
+   //Serial.println(myEnc.read());
    //Serial.print("La différence d'encodeur secondaire est de ");
-   //Serial.println(diffRigth);
+   //Serial.println(myEnc1.read());
 
   encDiffLeft = encDiffLeftNew;
   encDiffRigth = encDiffRigthNew;
@@ -124,7 +122,7 @@ void encUpdate() {
 
 // Fonction de commande de vitesse
 float* cmd_vel() {
-  static float vel[2] = {0.05,0}; // Exemple de vitesses ****************************************************
+  static float vel[2] = {0.1,0}; // Exemple de vitesses ****************************************************
   return vel;
 }
 
@@ -135,8 +133,8 @@ void cmd_vel2wheels(float vel[2], float axis_length, float radius, float wheels[
   // Commenté pour le tracé
    //Serial.print("Vitesses des roues : Gauche = "); //Wheels = vitesses roues désirées
    //Serial.println(wheels[0]);
-   //Serial.print(", Droite = ");
-   //Serial.println(wheels[1]);
+   Serial.print("Droite = ");
+   Serial.println(wheels[1]);
 }
 
 // Fonction pour mettre à jour les données d'odométrie
@@ -153,9 +151,9 @@ void poseUpdate() { //float wheels[2] ?
   wleft = (odom.v - (b / 2 * odom.w)) / r;
   wright = (odom.v + (b / 2 * odom.w)) / r;
 
-   Serial.print("wleft = ");
-   Serial.println(wleft,6);
-   Serial.print("wrigth = ");
+   //Serial.print("wleft = ");
+   //Serial.println(wleft,6);
+   Serial.print(",wrigth = ");
    Serial.println(wright,6);
    
 }
