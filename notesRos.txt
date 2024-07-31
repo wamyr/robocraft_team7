@@ -37,3 +37,5 @@ ros sudo apt install ros-noetic_teleop_twist_keyboard
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=turtle1/cmd_vel     #pour controller avec le pad, très golri
 
 définition d'un publisher, exemple : cmd_vel_pub = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1000);
+
+quand on lance un launch, avant il faut faire un catkin_make, source puis ensuite faire un rosrun turtlebot_control basic_controller
