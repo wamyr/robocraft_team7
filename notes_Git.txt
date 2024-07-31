@@ -1,0 +1,2 @@
+Sachant un répertoire existant, pour le cloner :
+  git clone "
