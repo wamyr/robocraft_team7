@@ -1,5 +1,5 @@
 pour créer un workspace : 
-  créer un dossier src
+  créer un dossier src (dans le ws)
   puis catkin_make
 
 mettre des packages : 
@@ -18,6 +18,8 @@ dans turtlebot_control_src :
   Changer et décommenter le CMakeLists.txt #lignes 150, 137
   ne pas oublier de sauvegarder le fichier CMakeLists.txt
 
-catkin_make
-source debel/setup.bash
-rosrun turtlebot_control basic_controller
+catkin_make (pour "build" le ws)
+source debel/setup.bash (si tu es à la base du ws autrement, ce serait source setup.bash si tu es déjà dans "devel)
+rosrun turtlebot_control basic_controller 
+
+
