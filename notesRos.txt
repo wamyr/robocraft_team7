@@ -17,3 +17,7 @@ dans turtlebot_control_src :
   essayer de print "hello" dedans
   Changer et décommenter le CMakeLists.txt #lignes 150, 137
   ne pas oublier de sauvegarder le fichier CMakeLists.txt
+
+catkin_make
+source debel/setup.bash
+rosrun turtlebot_control basic_controller
