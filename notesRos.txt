@@ -1,7 +1,8 @@
 pour créer un workspace : 
-créer un dossier src
-puis catkin_make
+  créer un dossier src
+  puis catkin_make
 
 mettre des packages : 
-aller dans cd catkin_ws/ src
-catkin_create_pkg turtlebot_control roscpp rospy std_msgs...
+  aller dans cd catkin_ws/ src
+  catkin_create_pkg turtlebot_control roscpp rospy std_msgs geometry
+  #roscpp est un compileur 
