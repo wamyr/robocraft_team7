@@ -1,0 +1,3 @@
+pour créer un workspace : 
+créer un dossier src
+puis catkin_make
