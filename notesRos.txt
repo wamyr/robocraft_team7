@@ -6,3 +6,14 @@ mettre des packages :
   aller dans cd catkin_ws/ src
   catkin_create_pkg turtlebot_control roscpp rospy std_msgs geometry_msgs
   #roscpp est un compileur 
+
+puis refaire catkin_make dans le dossier catkin_ws
+#il crée la structure de nos packages
+
+#ne pas hesiter à faire un git pour tout mettre dessus
+
+dans turtlebot_control_src :
+  touch bascic_controller.cpp # création d'un scrpit en cpp
+  essayer de print "hello" dedans
+  Changer et décommenter le CMakeLists.txt #lignes 150, 137
+  ne pas oublier de sauvegarder le fichier CMakeLists.txt
