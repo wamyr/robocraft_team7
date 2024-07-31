@@ -22,4 +22,4 @@ catkin_make (pour "build" le ws)
 source debel/setup.bash (si tu es à la base du ws autrement, ce serait source setup.bash si tu es déjà dans "devel)
 rosrun turtlebot_control basic_controller 
 
-
+il faut parfois un master # ne pas oublier de faire un roscore
