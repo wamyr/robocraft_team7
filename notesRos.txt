@@ -30,6 +30,7 @@ rosrun turtlesim turtlesim_node
 
 Pour voir le graphe des connections : rqt_graph
 
+roslaunch permet d'éviter le roscore + un deuxième terminal
 Une fois fait "rosrun turtlesim turtlesim_node  #créer une tortue
 
 ros sudo apt install ros-noetic_teleop_twist_keyboard
