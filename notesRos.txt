@@ -1,3 +1,5 @@
+!! faire un source devel/setup.bash pour avoir les commandes roscore...
+
 pour créer un workspace : 
   créer un dossier src (dans le ws)
   puis catkin_make
