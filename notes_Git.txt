@@ -1,2 +1,8 @@
 Sachant un répertoire existant, pour le cloner :
-  git clone "
+  git clone https://github.com/wamyr/robocraft_team7.git       #pour l'exemple de ce répertoire
+  #Le créera dans le répertoire où vous êtes
+
+(Conseil : mettre tous les répertoires clonés dans un grand répertoire "Git")
+
+Une fois cloné, le principe est similaire à celui d'un chariot :
+  Chaque fois que vous voulez agir sur le répertoire ou le mettre à jour sur votre ordinateur localement, 
