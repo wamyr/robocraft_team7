@@ -5,4 +5,11 @@ Sachant un répertoire existant, pour le cloner :
 (Conseil : mettre tous les répertoires clonés dans un grand répertoire "Git")
 
 Une fois cloné, le principe est similaire à celui d'un chariot :
-  Chaque fois que vous voulez agir sur le répertoire ou le mettre à jour sur votre ordinateur localement, 
+  Chaque fois que vous voulez agir sur le répertoire sur github ou le mettre à jour sur votre ordinateur localement :
+  git pull    #Vous amener le "chariot" vers vous, le chariot en question étant ici le répertoire github (à jour donc)
+
+Pour changer un élément ou ajouter un fichier au github :
+  -Manuellement : dans votre répertoire local après le git pull, vous pouvez glisser un fichier là où vous le souhaitez ou bien en modifier un en le réécrivant (pour un code par exemple) puis vous     éxécuterez les commandes suivantes :
+        git add .                 # On aurait pu spécifier le ou les éléments qui seront à updater mais pour ne pas s'embêter on va prendre tout avec "."
+        git commit -m "Ecrire ici un message pour dire ce que vous avez changé/ajouté"         # sans trop pouvoir donner le détails, ces deux lignes servent à "charger" notre chariot pour nous                                                                                                      préparer à le renvoyer vers Git
+        git push                   # Enfin, le tant attendu push, si tout va bien votre Github a été updaté
