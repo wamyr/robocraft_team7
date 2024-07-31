@@ -27,3 +27,5 @@ rosrun turtlebot_control basic_controller
 il faut parfois un master # ne pas oublier de faire un roscore
 puis ouvir un nouveau terminal
 rosrun turtlesim turtlesim_node
+
+Pour voir le graphe des connections : rqt_graph
