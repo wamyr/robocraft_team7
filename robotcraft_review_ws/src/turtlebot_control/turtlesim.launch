@@ -1,0 +1,10 @@
+<launch>
+	
+	<node pkg="turtlesim" type="turtlesim_node" name="turtlesim" output="screen"/>
+	<node pkg="turtlebot_control" type="basic_controller" name="turtlebot_control" output="screen">
+		<param name="linear_speed" value="1.0"/>
+		<param name="angular_speed" value="0.0"/>
+	</node>
+		
+	
+</launch>

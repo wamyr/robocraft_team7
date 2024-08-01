@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/carpe-bleue/ROS/robotcraft_review_ws/devel/setup.sh

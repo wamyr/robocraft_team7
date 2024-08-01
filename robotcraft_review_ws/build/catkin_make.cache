@@ -1,0 +1,2 @@
+turtlebot_control
+-DCATKIN_DEVEL_PREFIX=/home/carpe-bleue/ROS/robotcraft_review_ws/devel -DCMAKE_INSTALL_PREFIX=/home/carpe-bleue/ROS/robotcraft_review_ws/install -G Unix Makefiles
