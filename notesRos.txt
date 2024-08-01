@@ -25,7 +25,7 @@ source devel/setup.bash (si tu es à la base du ws autrement, ce serait source s
 rosrun turtlebot_control basic_controller 
 
 il faut parfois un master # ne pas oublier de faire un roscore
-puis ouvir un nouveau terminal
+puis ouvrir un nouveau terminal
 rosrun turtlesim turtlesim_node
 
 Pour voir le graphe des connections : rqt_graph
@@ -51,4 +51,20 @@ packages in the src
 build : files from "
 
 to rosrun, need roscore
+
+# DEFINITIONS : 
+#launch folder : run the exucutable
+#msg folder: custums messagers
+#scipts folder : python nodes
+#utils folder : generic folder with tools to help debug, mathematical equations...
+#CMakeLists : used by the build system to see dependencies and to know what are scripts, services... Hard to see errors but very important
+#package.xml: the thing that declare the package and its dependencies
+#ROS node : the executable of the code you have in the package
+#rostopic : thing for a specific task
+#publisher : put information on the topic/ subscriber : take information of the topic # you need same : topic_name, message_type, frequency
+  #type is the name of the executable (you can find it in CMakeLists.txt), name will be the name of the nodes
+
+
+
+ 
 
