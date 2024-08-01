@@ -64,7 +64,12 @@ to rosrun, need roscore
 #publisher : put information on the topic/ subscriber : take information of the topic # you need same : topic_name, message_type, frequency
   #type is the name of the executable (you can find it in CMakeLists.txt), name will be the name of the nodes
 
-
-
+#utile pour reproduire des mouvements
+mkdir bag 
+cd bag
+rosbag record /turtle1/cmd_vel
+rosbag play # il rejoue les data
+rostopic
+#information for the bag : rosbag info
  
 
