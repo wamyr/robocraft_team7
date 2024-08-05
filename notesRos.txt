@@ -71,7 +71,8 @@ rosbag record /turtle1/cmd_vel
 rosbag play # il rejoue les data
 rostopic
 #information for the bag : rosbag info
- 
+
+for mapping you need good position
 
 https://github.com/davidbsp/patrolling_sim/blob/master/maps/crobot.inc
 
