@@ -73,4 +73,4 @@ rostopic
 #information for the bag : rosbag info
  
 
-
+https://github.com/davidbsp/patrolling_sim/blob/master/maps/crobot.inc
