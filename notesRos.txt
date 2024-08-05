@@ -74,3 +74,6 @@ rostopic
  
 
 https://github.com/davidbsp/patrolling_sim/blob/master/maps/crobot.inc
+
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/robot_0/cmd_vel
+
