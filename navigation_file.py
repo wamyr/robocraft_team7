@@ -10,7 +10,7 @@ class ReactiveNavigation():
 		self.robot_stopped = False
 		self.obstacle_distance = 100
 		self.rospy_sub_laser = rospy.Subscriber("base_scan",LaserScan,self.laser_cb,queue_size = 1)
-		self.pub_CMD=rospy.Publisher("cmd_vel",Twist,queue_size=1)
+		self.pub_CMD = rospy.Publisher("cmd_vel",Twist,queue_size = 1)
 		self.rate = rospyRate(5)
 		
 	def laser_cb(self, callback):
@@ -26,3 +26,14 @@ class ReactiveNavigation():
 			else:
 				self.cmd_vel.linear.x = 0.0
 				self.cmd_vel.angular.z = 1.0
+	def run(self):
+		
+		while not rospy.is_shutdown :
+		self.calculate_command()
+		self.pub_CMD.publish(self.cmd_vel)
+		self.rate.sleep()
+		
+if __name__ == "__main__":
+	rospy.init_node("reactive_controller.py")
+	controller = ReactiveNavigation()
+	controller.run()
