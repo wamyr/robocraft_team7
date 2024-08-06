@@ -20,7 +20,7 @@ class ReactiveNavigation():
 		if type(self.laser_msg.ranges)==tuple:
 			self.obstacle_distance = min(self.laser_msg.ranges)
 			
-			if self.obstacle_distance > 1.0
+			if self.obstacle_distance > 1.0:
 				self.cmd_vel.linear.x = 1.0
 				self.cmd_vel.angular.z = 0.0
 			else:
@@ -29,9 +29,9 @@ class ReactiveNavigation():
 	def run(self):
 		
 		while not rospy.is_shutdown :
-		self.calculate_command()
-		self.pub_CMD.publish(self.cmd_vel)
-		self.rate.sleep()
+			self.calculate_command()
+			self.pub_CMD.publish(self.cmd_vel)
+			self.rate.sleep()
 		
 if __name__ == "__main__":
 	rospy.init_node("reactive_controller.py")
