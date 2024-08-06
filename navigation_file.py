@@ -10,6 +10,7 @@ class ReactiveNavigation():
 		self.robot_stopped = False
 		self.obstacle_distance = 100
 		self.rospy_sub_laser = rospy.Subscriber("base_scan",LaserScan,self.laser_cb,queue_size = 1)
+		self.pub_CMD=rospy.Publisher("cmd_vel",Twist,queue_size=1)
 		self.rate = rospyRate(5)
 		
 	def laser_cb(self, callback):
