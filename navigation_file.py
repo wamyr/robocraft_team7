@@ -16,3 +16,12 @@ class ReactiveNavigation():
 		self.laser_msg = callback
 	
 	def calculate_command(self):
+		if type(self.laser_msg.ranges)==tuple:
+			self.obstacle_distance = min(self.laser_msg.ranges)
+			
+			if self.obstacle_distance > 1.0
+				self.cmd_vel.linear.x = 1.0
+				self.cmd_vel.angular.z = 0.0
+			else:
+				self.cmd_vel.linear.x = 0.0
+				self.cmd_vel.angular.z = 1.0
