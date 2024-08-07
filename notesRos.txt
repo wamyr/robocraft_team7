@@ -76,5 +76,7 @@ for mapping you need good position
 
 https://github.com/davidbsp/patrolling_sim/blob/master/maps/crobot.inc
 
+Gmapping !
+
 rosrun teleop_twist_keyboard teleop_twist_keyboard.py cmd_vel:=/robot_0/cmd_vel
 
