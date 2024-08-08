@@ -4,10 +4,10 @@ import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
 
-class ReactiveNavigation():
+class ReactiveNavigation:
     def __init__(self):
+        self.mur = 0  
         self.cmd_vel = Twist()
-        
         self.laser_msg_0 = LaserScan()
 
         self.robot_stopped = False
@@ -46,24 +46,30 @@ class ReactiveNavigation():
 
         if laser_msg.ranges:
             obstacle_distance = min(laser_msg.ranges)
-
-            if obstacle_distance > 0.6:#devant
-                cmd_vel.linear.x = 1.0
-                cmd_vel.angular.z = 0.0
-            elif 0.3 < obstacle_distance < 0.6:#droite
+            
+            # Log pour déboguer l'état et la distance
+            rospy.loginfo(f"mur: {self.mur}, obstacle_distance: {obstacle_distance}")
+            
+            if self.mur == 0:
                 cmd_vel.linear.x = 0.3
-                cmd_vel.angular.z = -0.5
-            elif 0.18 < obstacle_distance < 0.3:#droite, droite
-                cmd_vel.linear.x = 0.1
-                cmd_vel.angular.z = -0.7
-            elif 0.01 < obstacle_distance < 0.1: # recul
-                cmd_vel.linear.x = -0.2
                 cmd_vel.angular.z = 0.0
-            else:#gauche
-                cmd_vel.linear.x = 0.1
-                cmd_vel.angular.z = 0.5
+                if 0.01 < obstacle_distance < 0.1:  # recul
+                    cmd_vel.linear.x = -0.2
+                    cmd_vel.angular.z = 0.0
+                    self.mur = 1  # Change l'état de mur
 
-        pub_CMD.publish(cmd_vel)
+            elif self.mur == 1:
+                if 0.18 < obstacle_distance:  # Tourne à droite
+                    cmd_vel.linear.x = 0.1
+                    cmd_vel.angular.z = -0.7
+                elif 0.01 < obstacle_distance < 0.1:  # recul
+                    cmd_vel.linear.x = -0.2
+                    cmd_vel.angular.z = 0.0
+                else:  # gauche
+                    cmd_vel.linear.x = 0.1
+                    cmd_vel.angular.z = 0.5
+            
+            pub_CMD.publish(cmd_vel)
 
 if __name__ == '__main__':
     rospy.init_node('reactive_navigation_py')
