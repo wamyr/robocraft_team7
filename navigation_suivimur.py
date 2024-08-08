@@ -50,7 +50,7 @@ class ReactiveNavigation:
             # Log pour déboguer l'état et la distance
             rospy.loginfo(f"mur: {self.mur}, obstacle_distance: {obstacle_distance}")
             
-            if self.mur == 0:
+            if self.mur == 0:#on va chercher à se rapprocher d'un mur
                 cmd_vel.linear.x = 0.3
                 cmd_vel.angular.z = 0.0
                 if 0.01 < obstacle_distance < 0.1:  # recul
@@ -58,7 +58,7 @@ class ReactiveNavigation:
                     cmd_vel.angular.z = 0.0
                     self.mur = 1  # Change l'état de mur
 
-            elif self.mur == 1:
+            elif self.mur == 1: #le robot sera collé au mur et le suivra
                 if 0.18 < obstacle_distance:  # Tourne à droite
                     cmd_vel.linear.x = 0.1
                     cmd_vel.angular.z = -0.7
