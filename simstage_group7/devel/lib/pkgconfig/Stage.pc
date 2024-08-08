@@ -1,8 +1,0 @@
-prefix=/home/grimont/Documents/ROS1/simstage_group7/devel
-
-Name: Stage
-Description: Description of Stage
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

@@ -1,2 +1,0 @@
-Stage
--DCATKIN_DEVEL_PREFIX=/home/grimont/Documents/ROS1/simstage_group7/devel -DCMAKE_INSTALL_PREFIX=/home/grimont/Documents/ROS1/simstage_group7/install -G Unix Makefiles
