@@ -24,7 +24,9 @@ define simple_robot position(
 	size [0.1 0.075 0.15]
 	gui_nose 1
 	drive "diff"
-
+	color "red"
+	
+	
 # 1ère couche
 # 1ère couche
 # 1ère couche
@@ -37,7 +39,7 @@ block(
     point[2] [0.7 0.8]
     point[3] [0.7 0.2]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -48,7 +50,7 @@ block(
     point[2] [0.8 0.8]
     point[3] [0.8 0.2]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -59,7 +61,7 @@ block(
     point[2] [0.8 0.7]
     point[3] [0.8 0.2]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -70,7 +72,7 @@ block(
     point[2] [0.8 0.8]
     point[3] [0.8 0.3]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -81,7 +83,7 @@ block(
     point[2] [0.8 0.9]
     point[3] [0.8 0.1]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -92,7 +94,7 @@ block(
     point[2] [0.9 0.9]
     point[3] [0.9 0.1]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -103,7 +105,7 @@ block(
     point[2] [0.9 0.8]
     point[3] [0.9 0.1]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -114,7 +116,7 @@ block(
     point[2] [0.9 0.9]
     point[3] [0.9 0.2]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -125,7 +127,7 @@ block(
     point[2] [0.9 1]
     point[3] [0.9 0]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -136,7 +138,7 @@ block(
     point[2] [1 1]
     point[3] [1 0]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -147,7 +149,7 @@ block(
     point[2] [1 0.9]
     point[3] [1 0]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 1ère couche
@@ -158,7 +160,7 @@ block(
     point[2] [1 1]
     point[3] [1 0.1]
     z [0.1 0.2]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -173,7 +175,7 @@ block(
     point[2] [0.7 0.8]
     point[3] [0.7 0.2]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -184,7 +186,7 @@ block(
     point[2] [0.8 0.8]
     point[3] [0.8 0.2]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )# 2ème couche
 block(
     points 4
@@ -193,7 +195,7 @@ block(
     point[2] [0.7 0.8]
     point[3] [0.7 0.2]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -204,7 +206,7 @@ block(
     point[2] [0.8 0.8]
     point[3] [0.8 0.2]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -215,7 +217,7 @@ block(
     point[2] [0.8 0.9]
     point[3] [0.8 0.1]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -226,7 +228,7 @@ block(
     point[2] [0.9 0.9]
     point[3] [0.9 0.1]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -237,7 +239,7 @@ block(
     point[2] [0.9 0.8]
     point[3] [0.9 0.1]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -248,7 +250,7 @@ block(
     point[2] [0.9 0.9]
     point[3] [0.9 0.2]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -259,7 +261,7 @@ block(
     point[2] [0.9 1]
     point[3] [0.9 0]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -270,7 +272,7 @@ block(
     point[2] [1 1]
     point[3] [1 0]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -281,7 +283,7 @@ block(
     point[2] [1 0.9]
     point[3] [1 0]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 2ème couche
@@ -292,7 +294,7 @@ block(
     point[2] [1 1]
     point[3] [1 0.1]
     z [0.5 0.6]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -307,7 +309,7 @@ block(
     point[2] [0.7 0.8]
     point[3] [0.7 0.2]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -318,7 +320,7 @@ block(
     point[2] [0.8 0.8]
     point[3] [0.8 0.2]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -329,7 +331,7 @@ block(
     point[2] [0.8 0.7]
     point[3] [0.8 0.2]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -340,7 +342,7 @@ block(
     point[2] [0.8 0.8]
     point[3] [0.8 0.3]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 
@@ -352,7 +354,7 @@ block(
     point[2] [0.8 0.9]
     point[3] [0.8 0.1]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -363,7 +365,7 @@ block(
     point[2] [0.9 0.9]
     point[3] [0.9 0.1]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -374,7 +376,7 @@ block(
     point[2] [0.9 0.8]
     point[3] [0.9 0.1]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -385,7 +387,7 @@ block(
     point[2] [0.9 0.9]
     point[3] [0.9 0.2]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -396,7 +398,7 @@ block(
     point[2] [0.9 1]
     point[3] [0.9 0]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -407,7 +409,7 @@ block(
     point[2] [1 1]
     point[3] [1 0]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -418,7 +420,7 @@ block(
     point[2] [1 0.9]
     point[3] [1 0]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # 3ème couche
@@ -429,7 +431,7 @@ block(
     point[2] [1 1]
     point[3] [1 0.1]
     z [0.9 1]
-    color "blue"
+    color "red"
 )
 
 # Roue gauche
